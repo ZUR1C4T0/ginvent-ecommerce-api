@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 
+import ginvent.backend.cart.entities.Cart;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,29 +20,32 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String id;
+    private String id;
 
     @Column(unique = true, nullable = false)
-    String title;
+    private String title;
 
     @Column(nullable = false)
-    String description;
+    private String description;
 
     @Column(nullable = false)
-    float price;
+    private float price;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
-    Category category;
+    private Category category;
 
     @Column(nullable = false)
-    List<String> images;
+    private List<String> images;
 
     @Column(nullable = false)
-    float rate;
+    private float rate;
 
     @Column(nullable = false)
     @CreatedDate
-    Date createdAt;
+    private Date createdAt;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Cart> carts = List.of();
 
 }

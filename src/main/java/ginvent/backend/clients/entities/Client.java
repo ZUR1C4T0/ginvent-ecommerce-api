@@ -1,5 +1,6 @@
 package ginvent.backend.clients.entities;
 
+import ginvent.backend.cart.entities.Cart;
 import ginvent.backend.users.entities.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,4 +38,8 @@ public class Client {
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @OneToOne
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    private Cart cart;
 }

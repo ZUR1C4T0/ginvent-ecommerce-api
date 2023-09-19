@@ -8,13 +8,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import ginvent.backend.users.entities.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
+@EnableWebMvc
 @RequiredArgsConstructor
-public class AppConfig {
+public class AppConfig implements WebMvcConfigurer {
 
     private final UserRepository userRepository;
 
@@ -35,6 +39,15 @@ public class AppConfig {
         provider.setUserDetailsService(userDetailsService());
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry
+                .addMapping("/**")
+                .allowedMethods("*")
+                .allowedMethods("GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS")
+                .allowedHeaders("*");
     }
 
 }

@@ -39,7 +39,7 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Client client;
+    private transient Client client;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
