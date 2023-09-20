@@ -1,4 +1,4 @@
-package ginvent.backend.auth.entities;
+package ginvent.backend.auth.jwt;
 
 import java.io.IOException;
 

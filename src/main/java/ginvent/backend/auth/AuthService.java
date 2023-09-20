@@ -5,9 +5,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ginvent.backend.auth.entities.AuthResponse;
-import ginvent.backend.auth.entities.JwtService;
 import ginvent.backend.auth.entities.LoginRequest;
 import ginvent.backend.auth.entities.RegisterRequest;
+import ginvent.backend.auth.jwt.JwtService;
 import ginvent.backend.users.entities.*;
 import lombok.RequiredArgsConstructor;
 
