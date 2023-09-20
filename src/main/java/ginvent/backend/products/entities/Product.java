@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 
-import ginvent.backend.cart.entities.Cart;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,8 +43,5 @@ public class Product {
     @Column(nullable = false)
     @CreatedDate
     private Date createdAt;
-
-    @ManyToMany(mappedBy = "products")
-    private List<Cart> carts = List.of();
 
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import ginvent.backend.clients.entities.Client;
 import ginvent.backend.clients.entities.ClientsRepository;
+import ginvent.backend.users.entities.User;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -32,6 +33,10 @@ public class ClientsService {
 
     public Client getByEmail(String email) {
         return clientsRepository.findByEmail(email).orElse(null);
+    }
+
+    public Client getByUser(User user) {
+        return clientsRepository.findByUser(user).orElse(null);
     }
 
     public Client update(String id, Client client) {

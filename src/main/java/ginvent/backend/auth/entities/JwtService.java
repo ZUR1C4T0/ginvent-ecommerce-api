@@ -1,4 +1,4 @@
-package ginvent.backend.auth;
+package ginvent.backend.auth.entities;
 
 import java.security.Key;
 import java.util.Date;
@@ -6,20 +6,32 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import ginvent.backend.users.UsersService;
+import ginvent.backend.users.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Service
 @RequiredArgsConstructor
 public class JwtService {
     private static final String SECRET_KEY = System.getenv("JWT_SECRET");
+
+    @Getter
+    @Setter
+    private String token;
+
+    @Autowired
+    private UsersService usersService;
 
     private Key getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
@@ -39,6 +51,11 @@ public class JwtService {
 
     public String getUsernameFromToken(String token) {
         return getClaim(token, Claims::getSubject);
+    }
+
+    public User getUserFromToken() {
+        String username = getUsernameFromToken(getToken());
+        return usersService.getByUsername(username);
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {

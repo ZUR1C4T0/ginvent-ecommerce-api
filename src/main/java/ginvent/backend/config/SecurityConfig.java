@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import ginvent.backend.auth.JwtAuthFilter;
+import ginvent.backend.auth.entities.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 
 @Configuration

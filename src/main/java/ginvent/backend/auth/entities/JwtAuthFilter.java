@@ -1,4 +1,4 @@
-package ginvent.backend.auth;
+package ginvent.backend.auth.entities;
 
 import java.io.IOException;
 
@@ -33,12 +33,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        jwtService.setToken(token);
 
-        String username = jwtService.getUsernameFromToken(token);
+        String username = jwtService.getUsernameFromToken(jwtService.getToken());
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            if (jwtService.isTokenValid(token, userDetails)) {
+            if (jwtService.isTokenValid(jwtService.getToken(), userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
                         null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
